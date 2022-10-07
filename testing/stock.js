@@ -1,4 +1,5 @@
 function ticker(symbol, shares) {
+  //symbol is name
   this.symbol = symbol;
   this.shares = shares;
 }
@@ -18,9 +19,10 @@ function isEmpty(arr) {
 function numUniqueTickers(arr) {
   const names_seen = [];
   let count = 0;
+  let curr_name = "";
 
   for (i = 0; i < arr.length; i++) {
-    let curr_name = arr[i].symbol;
+    curr_name = arr[i].symbol;
 
     if (!names_seen.includes(curr_name)) {
       names_seen.push(curr_name);
@@ -28,10 +30,41 @@ function numUniqueTickers(arr) {
     }
   }
 
-  console.log(names_seen);
+  return count;
+}
+
+//Buy new ticker
+function buyNewTicker(arr, ticker) {
+  arr.push(ticker);
+  return arr;
+}
+
+//Sell ticker
+function sellTicker(arr, ticker) {
+  arr.splice(arr.indexOf(ticker), 1);
+  return arr;
+}
+
+//Count ticker stock names
+function countTickers(arr, ticker) {
+  let count = 0;
+  let curr_name = "";
+
+  for (i = 0; i < arr.length; i++) {
+    curr_name = arr[i].symbol;
+
+    if (curr_name === ticker) {
+      count++;
+    }
+  }
+
+  console.log(count);
   return count;
 }
 
 exports.createPortfolio = createPortfolio;
 exports.isEmpty = isEmpty;
+exports.countTickers = countTickers;
+exports.buyNewTicker = buyNewTicker;
+exports.sellTicker = sellTicker;
 exports.numUniqueTickers = numUniqueTickers;
