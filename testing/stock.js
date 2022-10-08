@@ -1,9 +1,3 @@
-function ticker(symbol, shares) {
-  //symbol is name
-  this.symbol = symbol;
-  this.shares = shares;
-}
-
 //Create new portfolio
 function createPortfolio() {
   const portfolio = [];
@@ -33,15 +27,21 @@ function numUniqueTickers(arr) {
   return count;
 }
 
-//Buy new ticker
-function buyNewTicker(arr, ticker) {
-  arr.push(ticker);
+//Buy new stock ticker
+function buyNewTicker(arr, stockTicker) {
+  arr.push(stockTicker);
   return arr;
 }
 
-//Sell ticker
+//Sell stock ticker
 function sellTicker(arr, ticker) {
-  arr.splice(arr.indexOf(ticker), 1);
+  if (arr.includes(ticker)) {
+    arr.splice(arr.indexOf(ticker), 1);
+  } else {
+    //Indicating arr does not contain that stock ticker trying to be sold
+    return false;
+  }
+
   return arr;
 }
 
@@ -57,12 +57,20 @@ function countTickers(arr, ticker) {
       count++;
     }
   }
-
-  console.log(count);
   return count;
+}
+//Sell share for a particular stock ticker in portfolio
+function sellShares(tickers, amount) {
+  if (tickers.shares !== 0) {
+    tickers.shares = tickers.shares - amount;
+  } else {
+    //No stock ticker to sell
+    throw new Error("ShareSaleException");
+  }
 }
 
 exports.createPortfolio = createPortfolio;
+exports.sellShares = sellShares;
 exports.isEmpty = isEmpty;
 exports.countTickers = countTickers;
 exports.buyNewTicker = buyNewTicker;
