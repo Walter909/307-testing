@@ -60,13 +60,14 @@ function countTickers(arr, ticker) {
   return count;
 }
 //Sell share for a particular stock ticker in portfolio
-function sellShares(tickers, amount) {
-  if (tickers.shares !== 0) {
+function sellShares(porfolio, tickers, amount) {
+  //make sure portfolio is not empty
+  if (tickers.shares !== 0 && porfolio.includes(tickers)) {
     tickers.shares = tickers.shares - amount;
-  } else {
-    //No stock ticker to sell
-    throw new Error("ShareSaleException");
   }
+
+  //No stock ticker to sell or not in portfolio
+  throw new Error("ShareSaleException");
 }
 
 exports.createPortfolio = createPortfolio;

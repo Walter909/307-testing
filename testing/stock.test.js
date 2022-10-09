@@ -96,7 +96,9 @@ test("Testing selling right amount of shares for a stock ticker works -- success
 
 test("Testing selling too many shares for owned stock tickers throws exception -- success", () => {
   expect((t1) => {
+    const target = myFunctions.createPortfolio();
     t1 = new stockTicker("Apple", 0);
-    myFunctions.sellShares(t1, 100);
+    myFunctions.buyNewTicker(target, t1);
+    myFunctions.sellShares(target, t1, 100);
   }).toThrow("ShareSaleException");
 });
